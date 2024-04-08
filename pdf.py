@@ -1,7 +1,7 @@
 import os
-from llama_index import StorageContext, VectorStoreIndex, load_index_from_storage
-from llama_index.readers import PDFReader
-
+from llama_index.core import StorageContext, VectorStoreIndex, load_index_from_storage
+from llama_index.readers.file import PDFReader
+from pathlib import Path
 
 def get_index(data, index_name):
     index = None
@@ -17,7 +17,7 @@ def get_index(data, index_name):
     return index
 
 
-pdf_path = os.path.join("data", "Canada.pdf")
+pdf_path = Path(os.path.join("data", "Canada.pdf"))
 canada_pdf = PDFReader().load_data(file=pdf_path)
 canada_index = get_index(canada_pdf, "canada")
 canada_engine = canada_index.as_query_engine()
